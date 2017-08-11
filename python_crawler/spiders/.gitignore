@@ -1,0 +1,19 @@
+# refer to https://github.com/github/gitignore/blob/master/Laravel.gitignore
+/vendor
+/node_modules
+/public/storage
+/public/upload
+Homestead.yaml
+Homestead.json
+
+bootstrap/cache/
+.env.*.php
+.env.php
+.env
+# Rocketeer PHP task runner and deployment package. https://github.com/rocketeers/rocketeer
+.rocketeer/
+*.swp
+
+.idea
+.DS_Store
+composer.lock
