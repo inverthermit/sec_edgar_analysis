@@ -9,14 +9,25 @@ successFile = excelFolder+'/success.txt'
 failFile = excelFolder+'/fail.txt'
 logFile = excelFolder+'/log.txt'
 
+
+def getAlreadyDownload():
+    lineList = []
+    count = 0
+    with open(successFile) as f:
+        for line in f:
+            line = line.strip()
+            lineList.append(line)
+    return lineList
+
+downloadedList = getAlreadyDownload()
+
 def downloadFile(line):
     compName = line.split(',')[0]
     cik = line.split(',')[1]
     doc = line.split(',')[2]
     url = line.split(',')[3]
-    print(cik)
-    print(doc)
-    print(url)
+    if url in downloadedList:
+        return 0
     fileURLOpener = urllib.URLopener()
     try:
         fileURLOpener.retrieve(url,excelFolder+compName+'-'+cik+'-'+doc+'.xlsx' )
@@ -63,7 +74,7 @@ def fastMultiThread():
             line = line.strip()
             lineList.append(line)
     # make the Pool of workers
-    pool = ThreadPool(20)
+    pool = ThreadPool(10)
     # open the urls in their own threads
     # and return the results
     results = pool.map(downloadFile, lineList)
